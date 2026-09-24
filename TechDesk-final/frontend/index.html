@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TechDesk – IT Support</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #172033;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================
+           STARTSEITE
+        ========================= */
+
+        .landing {
+            min-height: 100vh;
+            background: #f8fafc;
+        }
+
+        .landing-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            background: white;
+            border-bottom: 1px solid #e8ebf0;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: #172033;
+        }
+
+        .brand span {
+            color: #2563eb;
+        }
+
+        .team-login {
+            background: transparent;
+            border: 1px solid #d7dce5;
+            padding: 10px 17px;
+            border-radius: 8px;
+            color: #172033;
+        }
+
+        .team-login:hover {
+            background: #f1f5f9;
+        }
+
+        .hero {
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eaf1ff;
+            color: #2563eb;
+            border-radius: 16px;
+            font-size: 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 6vw, 58px);
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto 35px;
+            color: #667085;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .problem-button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 15px 28px;
+            border-radius: 9px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, .18);
+        }
+
+        .problem-button:hover {
+            background: #1d4ed8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 65px;
+            text-align: left;
+        }
+
+        .feature {
+            background: white;
+            padding: 22px;
+            border: 1px solid #e7eaf0;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, .55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.15);
+        }
+
+        .modal-box h2 {
+            margin-bottom: 7px;
+        }
+
+        .modal-description {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid #d9dee7;
+            border-radius: 8px;
+            padding: 11px 13px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 22px;
+        }
+
+        .btn-secondary {
+            background: #eef1f5;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+        }
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        .login-screen {
+            min-height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border: 1px solid #e3e7ed;
+            border-radius: 14px;
+        }
+
+        .login-card h1 {
+            margin-bottom: 8px;
+        }
+
+        .login-card > p {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 13px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #d9dee7;
+            margin-bottom: 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .login-button:hover {
+            background: #f8fafc;
+        }
+
+        .back-button {
+            border: none;
+            background: transparent;
+            color: #667085;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            padding: 25px 15px;
+        }
+
+        .sidebar .brand {
+            padding: 0 10px;
+            margin-bottom: 35px;
+        }
+
+        .nav-title {
+            color: #98a2b3;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .nav li {
+            margin-bottom: 4px;
+        }
+
+        .nav button {
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: transparent;
+            padding: 11px 12px;
+            border-radius: 7px;
+            color: #667085;
+        }
+
+        .nav button:hover,
+        .nav button.active {
+            background: #edf3ff;
+            color: #2563eb;
+        }
+
+        .dashboard-main {
+            margin-left: 235px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .topbar h2 {
+            font-size: 20px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .dashboard-content {
+            padding: 30px;
+        }
+
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        /* STATISTICS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 11px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .stat-number {
+            font-size: 29px;
+            font-weight: 700;
+        }
+
+        /* CHART */
+
+        .chart-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 11px;
+            padding: 22px;
+            margin-bottom: 25px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .period-select {
+            width: auto;
+            padding: 8px 12px;
+        }
+
+        .chart {
+            height: 230px;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px;
+        }
+
+        .bar-wrapper {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 65%;
+            max-width: 45px;
+            background: #2563eb;
+            border-radius: 5px 5px 0 0;
+            min-height: 10px;
+        }
+
+        .bar-label {
+            font-size: 11px;
+            color: #667085;
+        }
+
+        /* TICKETS */
+
+        .ticket-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 11px;
+            overflow: hidden;
+        }
+
+        .ticket-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .ticket-toolbar input {
+            max-width: 280px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 15px 18px;
+            border-bottom: 1px solid #eef0f3;
+            font-size: 13px;
+        }
+
+        th {
+            color: #667085;
+            background: #fafbfc;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .ticket-id {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .open {
+            background: #eaf1ff;
+            color: #2563eb;
+        }
+
+        .progress {
+            background: #fff4db;
+            color: #b77900;
+        }
+
+        .hold {
+            background: #f1f3f5;
+            color: #667085;
+        }
+
+        .completed {
+            background: #e6f7ef;
+            color: #14804a;
+        }
+
+        .high {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        .medium {
+            color: #b77900;
+            font-weight: 700;
+        }
+
+        .low {
+            color: #14804a;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 65px;
+                padding: 20px 7px;
+            }
+
+            .sidebar .brand {
+                font-size: 0;
+            }
+
+            .sidebar .brand span {
+                font-size: 20px;
+            }
+
+            .nav-title {
+                display: none;
+            }
+
+            .nav button {
+                font-size: 0;
+                text-align: center;
+            }
+
+            .nav button:first-letter {
+                font-size: 18px;
+            }
+
+            .dashboard-main {
+                margin-left: 65px;
+            }
+
+            .dashboard-content {
+                padding: 18px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .ticket-card {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+            .hero {
+                padding-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     KUNDEN STARTSEITE
+===================================================== -->
+
+<div class="landing" id="landing">
+
+    <header class="landing-header">
+
+        <div class="brand">
+            Tech<span>Desk</span>
+        </div>
+
+        <button class="team-login" onclick="showLogin()">
+            ICT-Team Login
+        </button>
+
+    </header>
+
+
+    <main class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+                🎫
+            </div>
+
+            <h1>
+                Willkommen bei <span>TechDesk</span>
+            </h1>
+
+            <p>
+                Haben Sie ein technisches Problem?
+                Erstellen Sie schnell und unkompliziert ein Support-Ticket.
+                Unser ICT-Team kümmert sich darum.
+            </p>
+
+            <button
+                class="problem-button"
+                onclick="openTicketModal()"
+            >
+                Problem melden
+            </button>
+
+
+            <div class="features">
+
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Schnell melden</h3>
+                    <p>
+                        Problem beschreiben und Ticket in wenigen
+                        Sekunden erstellen.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📋</div>
+                    <h3>Übersichtlich</h3>
+                    <p>
+                        Ihr Anliegen wird direkt an das zuständige
+                        ICT-Team weitergeleitet.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Status verfolgen</h3>
+                    <p>
+                        Sie können jederzeit sehen, wie weit die
+                        Bearbeitung fortgeschritten ist.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     TICKET MODAL
+===================================================== -->
+
+<div class="modal" id="ticketModal">
+
+    <div class="modal-box">
+
+        <h2>Problem melden</h2>
+
+        <p class="modal-description">
+            Beschreiben Sie Ihr Problem möglichst genau.
+        </p>
+
+        <form id="ticketForm">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input
+                    id="customerName"
+                    type="text"
+                    placeholder="Max Muster"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>E-Mail</label>
+                <input
+                    id="customerEmail"
+                    type="email"
+                    placeholder="max@example.ch"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Problem</label>
+                <input
+                    id="problemTitle"
+                    type="text"
+                    placeholder="Laptop startet nicht"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Beschreibung</label>
+
+                <textarea
+                    id="problemDescription"
+                    placeholder="Beschreiben Sie das Problem..."
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+
+                <label>Priorität</label>
+
+                <select id="ticketPriority">
+
+                    <option value="low">
+                        Niedrig
+                    </option>
+
+                    <option value="medium" selected>
+                        Mittel
+                    </option>
+
+                    <option value="high">
+                        Hoch
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn-secondary"
+                    onclick="closeTicketModal()"
+                >
+                    Abbrechen
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Ticket erstellen
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<div class="login-screen" id="loginScreen">
+
+    <div class="login-card">
+
+        <button
+            class="back-button"
+            onclick="showLanding()"
+        >
+            ← Zurück
+        </button>
+
+        <div class="brand">
+            Tech<span>Desk</span>
+        </div>
+
+        <h1 style="margin-top:25px;">
+            ICT-Team Login
+        </h1>
+
+        <p>
+            Melden Sie sich an, um Ihre Support-Tickets
+            zu verwalten.
+        </p>
+
+
+        <button
+            class="login-button"
+            onclick="loginDemo('Microsoft')"
+        >
+            🪟 &nbsp; Mit Microsoft anmelden
+        </button>
+
+        <button
+            class="login-button"
+            onclick="loginDemo('Google')"
+        >
+            🔵 &nbsp; Mit Google anmelden
+        </button>
+
+        <button
+            class="login-button"
+            onclick="loginDemo('Apple')"
+        >
+             &nbsp; Mit Apple anmelden
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<div class="dashboard" id="dashboard">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            Tech<span>Desk</span>
+        </div>
+
+
+        <div class="nav-title">
+            Übersicht
+        </div>
+
+        <ul class="nav">
+
+            <li>
+                <button
+                    class="active"
+                    onclick="showSection('overview', this)"
+                >
+                    📊 Übersicht
+                </button>
+            </li>
+
+            <li>
+                <button
+                    onclick="showSection('tickets', this)"
+                >
+                    🎫 Tickets
+                </button>
+            </li>
+
+        </ul>
+
+
+        <div class="nav-title">
+            Verwaltung
+        </div>
+
+        <ul class="nav">
+
+            <li>
+                <button
+                    onclick="showSection('employees', this)"
+                >
+                    👥 Mitarbeiter
+                </button>
+            </li>
+
+            <li>
+                <button
+                    onclick="showSection('settings', this)"
+                >
+                    ⚙️ Einstellungen
+                </button>
+            </li>
+
+        </ul>
+
+
+        <button
+            onclick="logout()"
+            style="
+                position:absolute;
+                bottom:25px;
+                left:15px;
+                width:calc(100% - 30px);
+                border:none;
+                background:#f1f3f5;
+                padding:11px;
+                border-radius:8px;
+                color:#667085;
+            "
+        >
+            ↪ Abmelden
+        </button>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <h2 id="pageTitle">
+                Übersicht
+            </h2>
+
+            <div class="profile">
+
+                <div>
+                    <strong id="profileName">Max Muster</strong><br>
+                    <small style="color:#667085;" id="profileRole">
+                        ICT Administrator
+                    </small>
+                </div>
+
+                <div class="avatar" id="profileAvatar">
+                    MM
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="dashboard-content">
+
+
+            <!-- =========================
+                 OVERVIEW
+            ========================= -->
+
+            <section
+                class="dashboard-section active"
+                id="overview"
+            >
+
+                <h1>Guten Morgen, Max 👋</h1>
+
+                <p style="color:#667085;margin-top:7px;">
+                    Hier ist die aktuelle Übersicht Ihres
+                    Support-Systems.
+                </p>
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            Offene Tickets
+                        </div>
+
+                        <div
+                            class="stat-number"
+                            id="openStat"
+                        >
+                            24
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            In Bearbeitung
+                        </div>
+
+                        <div
+                            class="stat-number"
+                            id="progressStat"
+                        >
+                            11
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            On Hold
+                        </div>
+
+                        <div class="stat-number" id="holdStat">
+                            4
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            Heute erledigt
+                        </div>
+
+                        <div class="stat-number" id="completedStat">
+                            8
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- CHART -->
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+                            <h3>Tickets</h3>
+
+                            <p style="
+                                color:#667085;
+                                font-size:13px;
+                                margin-top:5px;
+                            ">
+                                Anzahl erstellter Tickets
+                            </p>
+                        </div>
+
+
+                        <select
+                            class="period-select"
+                            onchange="changeChart(this.value)"
+                        >
+
+                            <option value="week">
+                                Diese Woche
+                            </option>
+
+                            <option value="month">
+                                Dieser Monat
+                            </option>
+
+                            <option value="year">
+                                Dieses Jahr
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div
+                        class="chart"
+                        id="chart"
+                    ></div>
+
+                </div>
+
+
+                <!-- RECENT TICKETS -->
+
+                <div class="ticket-card">
+
+                    <div class="ticket-toolbar">
+
+                        <h3>
+                            Neueste Tickets
+                        </h3>
+
+                        <button
+                            class="btn-primary"
+                            onclick="showSectionById('tickets')"
+                        >
+                            Alle Tickets
+                        </button>
+
+                    </div>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Ticket</th>
+                                <th>Kunde</th>
+                                <th>Problem</th>
+                                <th>Status</th>
+                                <th>Priorität</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="overviewTickets">
+
+                            <tr>
+                                <td class="ticket-id">
+                                    #TK-1042
+                                </td>
+
+                                <td>Meier AG</td>
+
+                                <td>
+                                    Laptop startet nicht
+                                </td>
+
+                                <td>
+                                    <span class="badge open">
+                                        Offen
+                                    </span>
+                                </td>
+
+                                <td class="high">
+                                    Hoch
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="ticket-id">
+                                    #TK-1041
+                                </td>
+
+                                <td>Schneider GmbH</td>
+
+                                <td>
+                                    Outlook funktioniert nicht
+                                </td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        In Bearbeitung
+                                    </span>
+                                </td>
+
+                                <td class="medium">
+                                    Mittel
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 TICKETS
+            ========================= -->
+
+            <section
+                class="dashboard-section"
+                id="tickets"
+            >
+
+                <h1>Tickets</h1>
+
+                <p style="
+                    color:#667085;
+                    margin-top:7px;
+                    margin-bottom:25px;
+                ">
+                    Alle Support-Anfragen verwalten.
+                </p>
+
+
+                <div class="ticket-card">
+
+                    <div class="ticket-toolbar">
+
+                        <input
+                            type="search"
+                            placeholder="Ticket suchen..."
+                            oninput="searchTickets(this.value)"
+                        >
+
+                        <select
+                            onchange="filterTickets(this.value)"
+                        >
+
+                            <option value="all">
+                                Alle Status
+                            </option>
+
+                            <option value="open">
+                                Offen
+                            </option>
+
+                            <option value="in_progress">
+                                In Bearbeitung
+                            </option>
+
+                            <option value="on_hold">
+                                On Hold
+                            </option>
+
+                            <option value="completed">
+                                Erledigt
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Ticket</th>
+                                <th>Kunde</th>
+                                <th>Problem</th>
+                                <th>Priorität</th>
+                                <th>Status</th>
+                                <th>Zuständig</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="ticketTable">
+
+                            <tr data-status="open">
+
+                                <td class="ticket-id">
+                                    #TK-1042
+                                </td>
+
+                                <td>
+                                    Meier AG
+                                </td>
+
+                                <td>
+                                    Laptop startet nicht
+                                </td>
+
+                                <td class="high">
+                                    Hoch
+                                </td>
+
+                                <td>
+
+                                    <select
+                                        onchange="changeStatus(this)"
+                                    >
+
+                                        <option value="open" selected>
+                                            Offen
+                                        </option>
+
+                                        <option value="in_progress">
+                                            In Bearbeitung
+                                        </option>
+
+                                        <option value="on_hold">
+                                            On Hold
+                                        </option>
+
+                                        <option value="completed">
+                                            Erledigt
+                                        </option>
+
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    Max Muster
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-status="progress">
+
+                                <td class="ticket-id">
+                                    #TK-1041
+                                </td>
+
+                                <td>
+                                    Schneider GmbH
+                                </td>
+
+                                <td>
+                                    Outlook funktioniert nicht
+                                </td>
+
+                                <td class="medium">
+                                    Mittel
+                                </td>
+
+                                <td>
+
+                                    <select
+                                        onchange="changeStatus(this)"
+                                    >
+
+                                        <option value="open">
+                                            Offen
+                                        </option>
+
+                                        <option value="in_progress" selected>
+                                            In Bearbeitung
+                                        </option>
+
+                                        <option value="on_hold">
+                                            On Hold
+                                        </option>
+
+                                        <option value="completed">
+                                            Erledigt
+                                        </option>
+
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    Anna Keller
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-status="hold">
+
+                                <td class="ticket-id">
+                                    #TK-1040
+                                </td>
+
+                                <td>
+                                    Müller AG
+                                </td>
+
+                                <td>
+                                    Server-Zugriff
+                                </td>
+
+                                <td class="high">
+                                    Hoch
+                                </td>
+
+                                <td>
+
+                                    <select
+                                        onchange="changeStatus(this)"
+                                    >
+
+                                        <option value="open">
+                                            Offen
+                                        </option>
+
+                                        <option value="in_progress">
+                                            In Bearbeitung
+                                        </option>
+
+                                        <option value="on_hold" selected>
+                                            On Hold
+                                        </option>
+
+                                        <option value="completed">
+                                            Erledigt
+                                        </option>
+
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    David Meier
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-status="completed">
+
+                                <td class="ticket-id">
+                                    #TK-1039
+                                </td>
+
+                                <td>
+                                    Berger & Partner
+                                </td>
+
+                                <td>
+                                    Passwort zurücksetzen
+                                </td>
+
+                                <td class="low">
+                                    Niedrig
+                                </td>
+
+                                <td>
+
+                                    <select
+                                        onchange="changeStatus(this)"
+                                    >
+
+                                        <option value="open">
+                                            Offen
+                                        </option>
+
+                                        <option value="in_progress">
+                                            In Bearbeitung
+                                        </option>
+
+                                        <option value="on_hold">
+                                            On Hold
+                                        </option>
+
+                                        <option value="completed" selected>
+                                            Erledigt
+                                        </option>
+
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    Max Muster
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 EMPLOYEES
+            ========================= -->
+
+            <section
+                class="dashboard-section"
+                id="employees"
+            >
+
+                <h1>Mitarbeiter</h1>
+
+                <p style="
+                    color:#667085;
+                    margin-top:7px;
+                    margin-bottom:25px;
+                ">
+                    Übersicht des ICT-Teams.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            ICT-Team
+                        </div>
+                        <div class="stat-number" id="employeeCount">
+                            0
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            Administratoren
+                        </div>
+                        <div class="stat-number" id="adminCount">
+                            0
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ticket-card">
+                    <div class="ticket-toolbar">
+                        <h3>Teammitglieder</h3>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>E-Mail</th>
+                                <th>Rolle</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTable">
+                            <tr>
+                                <td colspan="3" style="color:#667085;">
+                                    Mitarbeiter werden geladen...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SETTINGS
+            ========================= -->
+
+            <section
+                class="dashboard-section"
+                id="settings"
+            >
+
+                <h1>Einstellungen</h1>
+
+                <p style="
+                    color:#667085;
+                    margin-top:7px;
+                ">
+                    Einstellungen für TechDesk.
+                </p>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+    /*
+       =====================================================
+       TECHDESK API
+       =====================================================
+
+       Das Frontend wird vom gleichen Server wie das Backend
+       ausgeliefert. Deshalb muss hier später keine Domain
+       oder Portnummer geändert werden.
+    */
+    const API_BASE = "/api";
+
+    let allTickets = [];
+    let activeStatusFilter = "all";
+    let activeSearch = "";
+
+    const STATUS_LABELS = {
+        open: "Offen",
+        in_progress: "In Bearbeitung",
+        on_hold: "On Hold",
+        completed: "Erledigt"
+    };
+
+    const PRIORITY_LABELS = {
+        low: "Niedrig",
+        medium: "Mittel",
+        high: "Hoch"
+    };
+
+    const STATUS_CLASSES = {
+        open: "open",
+        in_progress: "progress",
+        on_hold: "hold",
+        completed: "completed"
+    };
+
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    async function apiRequest(path, options = {}) {
+        const response = await fetch(API_BASE + path, {
+            headers: {
+                "Content-Type": "application/json",
+                ...(options.headers || {})
+            },
+            ...options
+        });
+
+        let data = {};
+        try {
+            data = await response.json();
+        } catch (_) {}
+
+        if (!response.ok) {
+            throw new Error(data.message || "Die Anfrage an den Server ist fehlgeschlagen.");
+        }
+
+        return data;
+    }
+
+    /* =========================
+       STARTSEITE
+    ========================= */
+
+    function showLogin() {
+        document.getElementById("landing").style.display = "none";
+        document.getElementById("loginScreen").style.display = "flex";
+    }
+
+    function showLanding() {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("landing").style.display = "block";
+    }
+
+    /* =========================
+       TICKET MODAL
+    ========================= */
+
+    function openTicketModal() {
+        document.getElementById("ticketModal").classList.add("active");
+    }
+
+    function closeTicketModal() {
+        document.getElementById("ticketModal").classList.remove("active");
+    }
+
+    document.getElementById("ticketModal").addEventListener("click", function(e) {
+        if (e.target === this) {
+            closeTicketModal();
+        }
+    });
+
+    document.getElementById("ticketForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Wird erstellt...";
+
+        const ticketData = {
+            name: document.getElementById("customerName").value.trim(),
+            email: document.getElementById("customerEmail").value.trim(),
+            title: document.getElementById("problemTitle").value.trim(),
+            description: document.getElementById("problemDescription").value.trim(),
+            priority: document.getElementById("ticketPriority").value
+        };
+
+        try {
+            const result = await apiRequest("/tickets", {
+                method: "POST",
+                body: JSON.stringify(ticketData)
+            });
+
+            const number = result.ticket?.ticket_number
+                ? `#TK-${result.ticket.ticket_number}`
+                : "";
+
+            alert(`Ticket wurde erfolgreich erstellt! ${number}`);
+
+            this.reset();
+            closeTicketModal();
+
+            // Falls das Dashboard bereits offen ist, Daten neu laden.
+            await Promise.allSettled([
+                loadTickets(),
+                loadStats()
+            ]);
+        } catch (error) {
+            alert(`Ticket konnte nicht erstellt werden.\n\n${error.message}\n\nPrüfe, ob dein Backend läuft und die API-Adresse stimmt.`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
+    });
+
+    /* =========================
+       DEMO LOGIN
+    ========================= */
+
+    async function loginDemo(provider) {
+        try {
+            const result = await apiRequest("/auth/demo-login", {
+                method: "POST",
+                body: JSON.stringify({ provider })
+            });
+
+            const user = result.user || {};
+            const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ") || "ICT Team";
+            const initials = [user.first_name, user.last_name]
+                .filter(Boolean)
+                .map(part => part.charAt(0).toUpperCase())
+                .join("")
+                .slice(0, 2) || "IT";
+
+            document.getElementById("profileName").textContent = fullName;
+            document.getElementById("profileRole").textContent =
+                user.role === "admin" ? "ICT Administrator" : "ICT Mitarbeiter";
+            document.getElementById("profileAvatar").textContent = initials;
+
+            document.getElementById("loginScreen").style.display = "none";
+            document.getElementById("dashboard").style.display = "block";
+
+            await Promise.allSettled([
+                loadTickets(),
+                loadStats(),
+                loadAgents(),
+                renderChart("week")
+            ]);
+        } catch (error) {
+            alert(`Anmeldung nicht möglich.\n\n${error.message}\n\nPrüfe, ob Backend und Datenbank laufen.`);
+        }
+    }
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    function logout() {
+        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("landing").style.display = "block";
+    }
+
+    /* =========================
+       DASHBOARD NAVIGATION
+    ========================= */
+
+    function showSection(sectionId, button) {
+        showSectionById(sectionId);
+
+        document
+            .querySelectorAll(".nav button")
+            .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        if (sectionId === "tickets") {
+            loadTickets();
+        }
+
+        if (sectionId === "overview") {
+            loadStats();
+        }
+
+        if (sectionId === "employees") {
+            loadAgents();
+        }
+    }
+
+    function showSectionById(sectionId) {
+        document
+            .querySelectorAll(".dashboard-section")
+            .forEach(section => section.classList.remove("active"));
+
+        document.getElementById(sectionId).classList.add("active");
+
+        const titles = {
+            overview: "Übersicht",
+            tickets: "Tickets",
+            employees: "Mitarbeiter",
+            settings: "Einstellungen"
+        };
+
+        document.getElementById("pageTitle").textContent = titles[sectionId];
+
+        if (sectionId === "tickets") {
+            loadTickets();
+        }
+    }
+
+    /* =========================
+       TICKETS LADEN
+    ========================= */
+
+    async function loadTickets() {
+        try {
+            const data = await apiRequest("/tickets");
+            allTickets = Array.isArray(data.tickets) ? data.tickets : [];
+            renderTicketTables();
+        } catch (error) {
+            console.error("Tickets konnten nicht geladen werden:", error);
+
+            document.getElementById("ticketTable").innerHTML = `
+                <tr>
+                    <td colspan="6" style="color:#dc2626;">
+                        Tickets konnten nicht geladen werden. Backend/API prüfen.
+                    </td>
+                </tr>
+            `;
+
+            document.getElementById("overviewTickets").innerHTML = `
+                <tr>
+                    <td colspan="5" style="color:#dc2626;">
+                        Keine Verbindung zum Backend.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function getCustomerDisplay(ticket) {
+        return ticket.company_name ||
+               ticket.customer_name ||
+               ticket.customer_email ||
+               "Unbekannt";
+    }
+
+    function renderTicketTables() {
+        const table = document.getElementById("ticketTable");
+        const overview = document.getElementById("overviewTickets");
+
+        const filteredTickets = allTickets.filter(ticket => {
+            const statusMatches =
+                activeStatusFilter === "all" ||
+                ticket.status === activeStatusFilter;
+
+            const searchable = [
+                ticket.ticket_number,
+                ticket.title,
+                ticket.description,
+                ticket.company_name,
+                ticket.customer_name,
+                ticket.customer_email,
+                ticket.assigned_agent_name,
+                STATUS_LABELS[ticket.status],
+                PRIORITY_LABELS[ticket.priority]
+            ].join(" ").toLowerCase();
+
+            const searchMatches =
+                searchable.includes(activeSearch.toLowerCase());
+
+            return statusMatches && searchMatches;
+        });
+
+        if (filteredTickets.length === 0) {
+            table.innerHTML = `
+                <tr>
+                    <td colspan="6" style="color:#667085;">
+                        Keine Tickets gefunden.
+                    </td>
+                </tr>
+            `;
+        } else {
+            table.innerHTML = filteredTickets.map(ticket => `
+                <tr data-status="${escapeHtml(ticket.status)}" data-ticket-id="${escapeHtml(ticket.id)}">
+                    <td class="ticket-id">
+                        #TK-${escapeHtml(ticket.ticket_number)}
+                    </td>
+                    <td>
+                        ${escapeHtml(getCustomerDisplay(ticket))}
+                    </td>
+                    <td>
+                        ${escapeHtml(ticket.title)}
+                    </td>
+                    <td class="${escapeHtml(ticket.priority)}">
+                        ${escapeHtml(PRIORITY_LABELS[ticket.priority] || ticket.priority)}
+                    </td>
+                    <td>
+                        <select onchange="changeStatus(this)">
+                            <option value="open" ${ticket.status === "open" ? "selected" : ""}>
+                                Offen
+                            </option>
+                            <option value="in_progress" ${ticket.status === "in_progress" ? "selected" : ""}>
+                                In Bearbeitung
+                            </option>
+                            <option value="on_hold" ${ticket.status === "on_hold" ? "selected" : ""}>
+                                On Hold
+                            </option>
+                            <option value="completed" ${ticket.status === "completed" ? "selected" : ""}>
+                                Erledigt
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        ${escapeHtml(ticket.assigned_agent_name || "Nicht zugewiesen")}
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        const newest = allTickets.slice(0, 5);
+
+        if (newest.length === 0) {
+            overview.innerHTML = `
+                <tr>
+                    <td colspan="5" style="color:#667085;">
+                        Noch keine Tickets vorhanden.
+                    </td>
+                </tr>
+            `;
+        } else {
+            overview.innerHTML = newest.map(ticket => `
+                <tr>
+                    <td class="ticket-id">
+                        #TK-${escapeHtml(ticket.ticket_number)}
+                    </td>
+                    <td>
+                        ${escapeHtml(getCustomerDisplay(ticket))}
+                    </td>
+                    <td>
+                        ${escapeHtml(ticket.title)}
+                    </td>
+                    <td>
+                        <span class="badge ${escapeHtml(STATUS_CLASSES[ticket.status] || "")}">
+                            ${escapeHtml(STATUS_LABELS[ticket.status] || ticket.status)}
+                        </span>
+                    </td>
+                    <td class="${escapeHtml(ticket.priority)}">
+                        ${escapeHtml(PRIORITY_LABELS[ticket.priority] || ticket.priority)}
+                    </td>
+                </tr>
+            `).join("");
+        }
+    }
+
+    /* =========================
+       STATUS ÄNDERN
+    ========================= */
+
+    async function changeStatus(select) {
+        const row = select.closest("tr");
+        const ticketId = row.dataset.ticketId;
+        const newStatus = select.value;
+
+        if (!ticketId) {
+            alert("Ticket-ID fehlt.");
+            return;
+        }
+
+        select.disabled = true;
+
+        try {
+            await apiRequest(`/tickets/${encodeURIComponent(ticketId)}`, {
+                method: "PATCH",
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            });
+
+            row.dataset.status = newStatus;
+
+            const ticket = allTickets.find(item => item.id === ticketId);
+            if (ticket) {
+                ticket.status = newStatus;
+            }
+
+            await loadStats();
+            renderTicketTables();
+        } catch (error) {
+            alert("Status konnte nicht gespeichert werden: " + error.message);
+            await loadTickets();
+        } finally {
+            select.disabled = false;
+        }
+    }
+
+    /* =========================
+       FILTER & SUCHE
+    ========================= */
+
+    function filterTickets(status) {
+        activeStatusFilter = status;
+        renderTicketTables();
+    }
+
+    function searchTickets(query) {
+        activeSearch = query.trim();
+        renderTicketTables();
+    }
+
+    /* =========================
+       STATISTIK
+    ========================= */
+
+    async function loadStats() {
+        try {
+            const data = await apiRequest("/stats");
+
+            const statusCounts = {
+                open: 0,
+                in_progress: 0,
+                on_hold: 0,
+                completed: 0
+            };
+
+            (data.by_status || []).forEach(item => {
+                statusCounts[item.status] = Number(item.count) || 0;
+            });
+
+            document.getElementById("openStat").textContent =
+                statusCounts.open;
+
+            document.getElementById("progressStat").textContent =
+                statusCounts.in_progress;
+
+            document.getElementById("holdStat").textContent =
+                statusCounts.on_hold;
+
+            document.getElementById("completedStat").textContent =
+                Number(data.today_completed) || 0;
+        } catch (error) {
+            console.error("Statistiken konnten nicht geladen werden:", error);
+        }
+    }
+
+    /* =========================
+       MITARBEITER
+    ========================= */
+
+    async function loadAgents() {
+        const table = document.getElementById("employeeTable");
+
+        try {
+            const data = await apiRequest("/users/agents");
+            const users = Array.isArray(data.users) ? data.users : [];
+
+            document.getElementById("employeeCount").textContent = users.length;
+            document.getElementById("adminCount").textContent =
+                users.filter(user => user.role === "admin").length;
+
+            if (users.length === 0) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="3" style="color:#667085;">
+                            Keine ICT-Mitarbeiter vorhanden.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            table.innerHTML = users.map(user => {
+                const name = [user.first_name, user.last_name]
+                    .filter(Boolean)
+                    .join(" ");
+
+                return `
+                    <tr>
+                        <td>${escapeHtml(name)}</td>
+                        <td>${escapeHtml(user.email)}</td>
+                        <td>${escapeHtml(user.role === "admin" ? "Administrator" : "Mitarbeiter")}</td>
+                    </tr>
+                `;
+            }).join("");
+        } catch (error) {
+            console.error("Mitarbeiter konnten nicht geladen werden:", error);
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="3" style="color:#dc2626;">
+                        Mitarbeiter konnten nicht geladen werden.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    /* =========================
+       CHART
+    ========================= */
+
+    async function renderChart(period) {
+        const chart = document.getElementById("chart");
+        chart.innerHTML = `
+            <div style="padding:20px;color:#667085;">
+                Diagramm wird geladen...
+            </div>
+        `;
+
+        try {
+            const result = await apiRequest(
+                `/stats/chart?period=${encodeURIComponent(period)}`
+            );
+
+            const points = Array.isArray(result.data) ? result.data : [];
+
+            chart.innerHTML = "";
+
+            if (points.length === 0) {
+                chart.innerHTML = `
+                    <div style="padding:20px;color:#667085;">
+                        Für diesen Zeitraum sind noch keine Daten vorhanden.
+                    </div>
+                `;
+                return;
+            }
+
+            const values = points.map(point => Number(point.count) || 0);
+            const max = Math.max(...values, 1);
+
+            points.forEach(point => {
+                const value = Number(point.count) || 0;
+
+                const wrapper = document.createElement("div");
+                wrapper.className = "bar-wrapper";
+
+                const countLabel = document.createElement("div");
+                countLabel.className = "bar-label";
+                countLabel.textContent = value;
+
+                const bar = document.createElement("div");
+                bar.className = "bar";
+                bar.style.height = ((value / max) * 80) + "%";
+                bar.title = `${point.period}: ${value} Ticket(s)`;
+
+                const label = document.createElement("div");
+                label.className = "bar-label";
+                label.textContent = formatChartLabel(point.period, period);
+
+                wrapper.appendChild(countLabel);
+                wrapper.appendChild(bar);
+                wrapper.appendChild(label);
+                chart.appendChild(wrapper);
+            });
+        } catch (error) {
+            chart.innerHTML = `
+                <div style="padding:20px;color:#dc2626;">
+                    Diagramm konnte nicht geladen werden.
+                </div>
+            `;
+            console.error(error);
+        }
+    }
+
+    function formatChartLabel(value, period) {
+        if (!value) return "";
+
+        if (period === "year") {
+            const parts = value.split("-");
+            if (parts.length === 2) {
+                const monthNames = [
+                    "Jan", "Feb", "Mär", "Apr", "Mai", "Jun",
+                    "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
+                ];
+
+                return monthNames[Number(parts[1]) - 1] || value;
+            }
+        }
+
+        const date = new Date(value + "T00:00:00");
+
+        if (!Number.isNaN(date.getTime())) {
+            if (period === "week") {
+                return ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][date.getDay()];
+            }
+
+            return date.toLocaleDateString("de-CH", {
+                day: "2-digit",
+                month: "2-digit"
+            });
+        }
+
+        return value;
+    }
+
+    function changeChart(period) {
+        renderChart(period);
+    }
+
+    /* =========================
+       INITIAL
+    ========================= */
+
+    renderChart("week");
+</script>
+
+</body>
+</html>

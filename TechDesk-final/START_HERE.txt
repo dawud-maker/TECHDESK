@@ -1,0 +1,66 @@
+TECHDESK – FERTIGES PROJEKT
+
+Ordner:
+  frontend/index.html
+  backend/server.js
+  backend/package.json
+  backend/.env.example
+  backend/database/connection.js
+  backend/routes/tickets.js
+  backend/routes/users.js
+  backend/routes/stats.js
+  backend/routes/auth.js
+  database/schema.sql
+
+WICHTIG
+=======
+Die Dateien sind jetzt auf dein vorhandenes PostgreSQL-Schema abgestimmt.
+
+Insbesondere:
+- tickets.assigned_to wird überall korrekt verwendet.
+- Statuswerte:
+    open
+    in_progress
+    on_hold
+    completed
+- Prioritäten:
+    low
+    medium
+    high
+- "Heute erledigt" verwendet completed_at.
+- Das Frontend verwendet nur /api und muss beim späteren Hosting
+  NICHT auf eine andere API-Adresse umgestellt werden.
+- Das Backend liefert frontend/index.html selbst aus.
+
+START (wenn Node.js auf dem Server vorhanden ist)
+=================================================
+1. PostgreSQL-Datenbank erstellen.
+2. database/schema.sql einmal ausführen.
+3. backend/.env.example zu backend/.env kopieren.
+4. In backend/.env DATABASE_URL korrekt eintragen.
+5. Im Ordner backend:
+       npm install
+       npm start
+6. Webseite im Browser über die Server-Adresse öffnen.
+
+TEST
+====
+Im Browser:
+  /api/health
+
+Wenn alles stimmt, kommt ungefähr:
+  {
+    "success": true,
+    "status": "online",
+    "database": "connected"
+  }
+
+LOGIN
+=====
+Die Microsoft-/Google-/Apple-Schaltflächen funktionieren aktuell als
+Demo-Login über den ersten aktiven Admin/Agent in PostgreSQL.
+
+Echtes Microsoft-/Google-/Apple-OAuth kann nicht ohne die jeweiligen
+Client-IDs, Secrets und Callback-Konfigurationen fertig eingerichtet
+werden. Das ist keine Code-Inkompatibilität, sondern benötigt Zugangsdaten
+der jeweiligen Anbieter.
